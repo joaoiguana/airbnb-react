@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.scss';
 import ReactMapboxGl from 'react-mapbox-gl';
 import Flat from '../Flat'
+import FlatMarker from '../FlatMarker'
 
 const Map = ReactMapboxGl({accessToken: 'pk.eyJ1Ijoiam9hb2lndWFuYSIsImEiOiJjbDZwMnFyM3kwZ2k1M2pxb3R5eWlvZ3FwIn0.SgcIRipy3dK0yZBLeaSf8Q'})
 
@@ -32,7 +33,10 @@ const App = () => {
           zoom={[14]}
           center={[2.3522, 48.8566]}
           containerStyle={{ height: '100vh', width: '100%' }}
-          style="mapbox://styles/mapbox/streets-v8" />
+          style="mapbox://styles/mapbox/streets-v8"
+        >
+          <FlatMarker price={150} lat={48.8566} lng={2.3522} />
+        </Map>
       </div>
     </div>
   );
