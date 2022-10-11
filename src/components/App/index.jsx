@@ -3,7 +3,7 @@ import './App.scss';
 import ReactMapboxGl from 'react-mapbox-gl';
 
 import Flat from '../Flat';
-import FlatMarker from '../FlatMarker';
+import FlatMark from '../FlatMarker';
 import Search from '../Search'
 
 const Map = ReactMapboxGl({accessToken: 'pk.eyJ1Ijoiam9hb2lndWFuYSIsImEiOiJjbDZwMnFyM3kwZ2k1M2pxb3R5eWlvZ3FwIn0.SgcIRipy3dK0yZBLeaSf8Q'})
@@ -43,8 +43,8 @@ const App = () => {
           containerStyle={{ height: '100vh', width: '100%' }}
           style="mapbox://styles/mapbox/streets-v8"
         >
-          {flats.map((flat) => {
-            return <FlatMarker key={flat.id} price={flat.price} lat={flat.lat} lng={flat.lng} />
+          {filteredFlats.map((flat) => {
+            return <FlatMark key={flat.id} price={flat.price} lat={flat.lat} lng={flat.lng} />
           })}
         </Map>
       </div>
