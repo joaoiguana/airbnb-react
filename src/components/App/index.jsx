@@ -24,13 +24,14 @@ const App = () => {
     setSearchText(text);
   };
 
+  const filteredFlats = flats.filter(flat => flat.name.match(new RegExp(searchText, 'i')));
 
   return (
     <div className='app'>
       <div className='main'>
         <Search onSearch={handleSearch} />
         <div className='flats'>
-          {flats.map((flat) => {
+          {filteredFlats.map((flat) => {
             return <Flat key={flat.id} imageUrl={flat.imageUrl} price={flat.price} name={flat.name} />
           })}
         </div>
