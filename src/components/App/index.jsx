@@ -13,6 +13,7 @@ const API_URL = 'https://raw.githubusercontent.com/lewagon/flats-boilerplate/mas
 const App = () => {
   const [flats, setFlats] = useState([]);
   const [searchText, setSearchText] = useState('');
+  const [selectedId, setSelectedId] = useState();
 
   useEffect(() => {
     fetch(API_URL)
@@ -24,6 +25,14 @@ const App = () => {
     setSearchText(text);
   };
 
+  const handleFlatSelect = (id) => {
+    if (selectedId === id) {
+      setSelectedId(null);
+    } else {
+      setSelectedId(id);
+    }
+  }
+
   const filteredFlats = flats.filter(flat => flat.name.match(new RegExp(searchText, 'i')));
 
   return (
@@ -32,7 +41,13 @@ const App = () => {
         <Search onSearch={handleSearch} />
         <div className='flats'>
           {filteredFlats.map((flat) => {
-            return <Flat key={flat.id} imageUrl={flat.imageUrl} price={flat.price} name={flat.name} />
+            return <Flat
+              key={flat.id}
+              imageUrl={flat.imageUrl}
+              price={flat.price}
+              name={flat.name}
+              onSelect={() => handleFlatSelect(flat.id)}
+              selected={flat.id === selectedId} />
           })}
         </div>
       </div>
