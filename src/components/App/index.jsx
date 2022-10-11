@@ -9,11 +9,13 @@ import Search from '../Search'
 const Map = ReactMapboxGl({accessToken: 'pk.eyJ1Ijoiam9hb2lndWFuYSIsImEiOiJjbDZwMnFyM3kwZ2k1M2pxb3R5eWlvZ3FwIn0.SgcIRipy3dK0yZBLeaSf8Q'})
 
 const API_URL = 'https://raw.githubusercontent.com/lewagon/flats-boilerplate/master/flats.json';
+const DEFAULT_CENTER = [2.3522, 48.8566];
 
 const App = () => {
   const [flats, setFlats] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [selectedId, setSelectedId] = useState();
+  const [center, setCenter] = useState(DEFAULT_CENTER);
 
   useEffect(() => {
     fetch(API_URL)
@@ -27,8 +29,13 @@ const App = () => {
 
   const handleFlatSelect = (id) => {
     if (selectedId === id) {
+      setCenter(DEFAULT_CENTER);
       setSelectedId(null);
     } else {
+      const selectedFlat = flats.find((flat) => flat.id === id);
+      const { lat, lng } = selectedFlat;
+
+      setCenter([lng, lat]);
       setSelectedId(id);
     }
   }
@@ -54,12 +61,17 @@ const App = () => {
       <div className='map'>
         <Map
           zoom={[14]}
-          center={[2.34689, 48.884211]}
+          center={center}
           containerStyle={{ height: '100vh', width: '100%' }}
           style="mapbox://styles/mapbox/streets-v8"
         >
           {filteredFlats.map((flat) => {
-            return <FlatMark key={flat.id} price={flat.price} lat={flat.lat} lng={flat.lng} />
+            return <FlatMark
+            key={flat.id}
+            price={flat.price}
+            lat={flat.lat}
+            lng={flat.lng}
+            selected={flat.id === selectedId} />
           })}
         </Map>
       </div>
