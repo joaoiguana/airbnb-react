@@ -4,9 +4,11 @@ import './FlatMarker.scss';
 const FlatMark = ({ lat, lng, price, selected }) => {
   const classNames = selected ? 'marker selected' : 'marker';
 
+  console.log(selected);
+
   return (
     <Marker coordinates={[lng, lat]} anchor="bottom">
-      <strong className={classNames}>{price}</strong>
+      <p><strong className={classNames}>{price}</strong></p>
     </Marker>
   );
 };

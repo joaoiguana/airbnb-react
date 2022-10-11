@@ -64,6 +64,7 @@ const App = () => {
           center={center}
           containerStyle={{ height: '100vh', width: '100%' }}
           style="mapbox://styles/mapbox/streets-v8"
+
         >
           {filteredFlats.map((flat) => {
             return <FlatMark
